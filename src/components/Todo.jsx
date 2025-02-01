@@ -81,7 +81,7 @@ const Todo = () => {
         })}
 
         {/* <TodoItems text="Learn Coding" />
-        <TodoItems text="Learn Coding from Adina Sarosh" /> */}
+        <TodoItems text="Learn Coding from Adina" /> */}
       </div>
     </div>
   );
