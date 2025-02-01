@@ -3,7 +3,11 @@ import todo_icon from "../assets/todo_icon.png";
 import TodoItems from "./TodoItems";
 
 const Todo = () => {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(
+    localStorage.getItem("todos")
+      ? JSON.parse(localStorage.getItem("todos"))
+      : []
+  );
   const inputRef = useRef();
 
   const add = () => {
@@ -20,32 +24,29 @@ const Todo = () => {
     };
     setTodoList((prev) => [...prev, newTodo]);
     inputRef.current.value = "";
-  }
+  };
 
-  const deleteTodo = (id)=>{
-    setTodoList((prvTodos)=>{
-       return prvTodos.filter((todo) => todo.id !== id)
-    })
+  const deleteTodo = (id) => {
+    setTodoList((prvTodos) => {
+      return prvTodos.filter((todo) => todo.id !== id);
+    });
+  };
 
-  }
+  const toggle = (id) => {
+    setTodoList((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, isComplete: !todo.isComplete };
+        }
+        return todo;
+      });
+    });
+  };
 
-  const toggle = (id)=>{
-    setTodoList((prevTodos)=>{
-        return prevTodos.map((todo)=>{
-            if (todo.id === id){
-               return {...todo, isComplete: !todo.isComplete}
-            } 
-            return todo;
-        })
-    })
-
-  }
-
-  useEffect(()=>{
-    console.log(todoList);
-    
-  },[todoList])
-
+  useEffect(() => {
+    // console.log(todoList);
+    localStorage.setItem("todos", JSON.stringify(todoList));
+  }, [todoList]);
 
   return (
     <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl">
@@ -77,7 +78,16 @@ const Todo = () => {
 
       <div>
         {todoList.map((item, index) => {
-          return <TodoItems key={index} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} toggle={toggle}/>;
+          return (
+            <TodoItems
+              key={index}
+              text={item.text}
+              id={item.id}
+              isComplete={item.isComplete}
+              deleteTodo={deleteTodo}
+              toggle={toggle}
+            />
+          );
         })}
 
         {/* <TodoItems text="Learn Coding" />
