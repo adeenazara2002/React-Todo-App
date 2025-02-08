@@ -1,6 +1,4 @@
 import React from "react";
-import tick from "../assets/tick.png";
-import not_tick from "../assets/not_tick.png";
 import delete_icon from "../assets/delete.png";
 
 const TodoItems = ({ text, id, isComplete, deleteTodo, toggle }) => {
@@ -12,7 +10,25 @@ const TodoItems = ({ text, id, isComplete, deleteTodo, toggle }) => {
         }}
         className="flex flex-1 items-center cursor-pointer"
       >
-        <img src={isComplete ? tick : not_tick} alt="" className="w-7" />
+        <div
+          className="w-7 h-7 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: isComplete ? "#ff6f91" : "#ccc" }}
+        >
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+
         <p
           className={`text-slate-700 ml-4 text-[17px] ${
             isComplete ? "line-through" : ""

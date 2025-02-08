@@ -3,7 +3,13 @@ import Todo from "./components/Todo";
 
 const App = () => {
   return (
-    <div className="bg-stone-900 grid py-4 min-h-screen">
+    <div
+      className="grid py-4 min-h-screen"
+      style={{
+        background: "linear-gradient(135deg, #ffb3c6, #CAB8FF)",
+        color: "#333333",
+      }}
+    >
       <Todo />
     </div>
   );
